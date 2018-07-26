@@ -2,6 +2,7 @@ class ReturnsController < ApplicationController
   before_action :set_return, only: [:destroy, :confirmation]
   before_action :set_project, only: [:new, :choice, :confirmation]
   before_action :require_login
+  before_action :require_get, only: [:information, :confirmation]
 
   # 支払い選択
   def choice
@@ -48,5 +49,9 @@ class ReturnsController < ApplicationController
 
   def set_project
     @project = Project.find(params[:project_id])
+  end
+
+  def require_get
+    redirect_to root_path if request.get?
   end
 end
